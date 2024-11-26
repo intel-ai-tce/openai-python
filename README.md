@@ -43,8 +43,9 @@ Below 3 examples modified from this repo or vllm repo should run well with OPEA 
     ```sh
     docker compose -f compose_vllm.yaml up vllm-service
     ```
-    It will take couple minutes to start vllm-service after couple warmup iterations. 
-3. (optional) users could follow LLM backend Service section in this link :  [validate service](https://github.com/opea-project/GenAIExamples/tree/main/ChatQnA/docker_compose/intel/hpu/gaudi#validate-microservices-and-megaservice)
+   By default, it will use Intel/neural-chat-7b-v3-3 model but users could change model by following OPEA document.
+   It will take couple minutes to start vllm-service after couple warmup iterations. 
+4. (optional) users could follow LLM backend Service section in this link :  [validate service](https://github.com/opea-project/GenAIExamples/tree/main/ChatQnA/docker_compose/intel/hpu/gaudi#validate-microservices-and-megaservice)
 
 
 #### Then, users could start testing the OpenAI API examples.
@@ -64,6 +65,8 @@ client = OpenAI(
 ```
 
 ##### Here are 3 examples to start with.
+Testing 3 examples with local OPEA vLLM server and Intel/neural-chat-7b-v3-3 model.
+
 
 1. Streaming responses example modified from Streaming responses section below
 
