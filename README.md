@@ -22,7 +22,84 @@ The REST API documentation can be found on [platform.openai.com](https://platfor
 pip install openai
 ```
 
+### OPEA Installation
+leverage the vLLM Gaudi docker image from OPEA ChatQnA example.
+1. clone the OPEA GenAIExamples codes with related docker compose files
+```sh
+git clone https://github.com/opea-project/GenAIExamples.git
+```
+2. into the hpu folder, and pull the latest docker images
+```sh
+cd GenAIExamples/ChatQnA/docker_compose/intel/hpu
+docker compose pull
+```
+### OpenAI API testings on OPEA Gaudi vllm server
+Below 3 examples modified from this repo or vllm repo should run well with OPEA Gaudi vllm server.
+
+#### Users first need to launch the vllm-service by using docker compose.
+1. follow below section to setup environment variables.
+    [env setup](https://github.com/opea-project/GenAIExamples/tree/main/ChatQnA/docker_compose/intel/hpu/gaudi#quick-start-1setup-environment-variable)
+2. start vllm-service by docker compose. don't need to start other microservices.
+    ```sh
+    docker compose -f compose_vllm.yaml up vllm-service
+    ```
+    It will take couple minutes to start vllm-service after couple warmup iterations. 
+3. (optional) users could follow LLM backend Service section in this link :  [validate service](https://github.com/opea-project/GenAIExamples/tree/main/ChatQnA/docker_compose/intel/hpu/gaudi#validate-microservices-and-megaservice)
+
+
+#### Then, users could start testing the OpenAI API examples.
+
+The needed change is to use the local vllm server instead of the OpenAI server.
+Users just need to add below codes into their current OpenAI API codes to use local OPEA Gaudi vllm server.
+
+```python
+from openai import OpenAI
+openai_api_key = "EMPTY"
+openai_api_base = "http://localhost:8007/v1"
+    
+client = OpenAI(
+    api_key=openai_api_key,
+    base_url=openai_api_base,
+)
+```
+
+##### Here are 3 examples to start with.
+
+1. Streaming responses example modified from Streaming responses section below
+
+```sh
+python3 examples/streammingtest.py
+```
+
+Here are the sample outputs
+
+```sh
+ To output all files in a directory using Python, you can use the `os` and `glob` modules. Here's a simple example:
+
+import os
+from glob import glob
+
+directory = "your_directory_path"
+
+# Get a list of all files in the directory
+files = glob(os.path.join(directory, "*.*"))
+
+# Iterate through the files and print their names
+for file in files:
+    print(file)
+```
+
+2. demo example modified from this repo
+```sh
+python3 examples/demo.py
+```
+3. [demo example](https://github.com/vllm-project/vllm/blob/main/examples/openai_completion_client.py) modified from vllm repo.
+```sh
+python3  examples/openai_completion_client.py.py
+```
+
 ## Usage
+
 
 The full API of this library can be found in [api.md](api.md).
 
