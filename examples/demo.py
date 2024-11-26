@@ -2,13 +2,19 @@
 
 from openai import OpenAI
 
-# gets API Key from environment variable OPENAI_API_KEY
-client = OpenAI()
+openai_api_key = "EMPTY"
+openai_api_base = "http://localhost:8007/v1"
+
+client = OpenAI(
+    # defaults to os.environ.get("OPENAI_API_KEY")
+    api_key=openai_api_key,
+    base_url=openai_api_base,
+)
 
 # Non-streaming:
 print("----- standard request -----")
 completion = client.chat.completions.create(
-    model="gpt-4",
+    model="Intel/neural-chat-7b-v3-3",
     messages=[
         {
             "role": "user",
@@ -21,7 +27,7 @@ print(completion.choices[0].message.content)
 # Streaming:
 print("----- streaming request -----")
 stream = client.chat.completions.create(
-    model="gpt-4",
+    model="Intel/neural-chat-7b-v3-3",
     messages=[
         {
             "role": "user",
@@ -40,7 +46,7 @@ print()
 # Response headers:
 print("----- custom response headers test -----")
 response = client.chat.completions.with_raw_response.create(
-    model="gpt-4",
+    model="Intel/neural-chat-7b-v3-3",
     messages=[
         {
             "role": "user",
