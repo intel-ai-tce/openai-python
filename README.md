@@ -30,7 +30,7 @@ git clone https://github.com/opea-project/GenAIExamples.git
 ```
 2. into the hpu folder, and pull the latest docker images
 ```sh
-cd GenAIExamples/ChatQnA/docker_compose/intel/hpu
+cd GenAIExamples/ChatQnA/docker_compose/intel/hpu/gaudi
 docker compose pull
 ```
 ### OpenAI API testings on OPEA Gaudi vllm server
